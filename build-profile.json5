@@ -1,0 +1,54 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/liusaideng/.ohos/config/default_YouzanHarmonySDK_6lgcuPFEv_hGtwi872agXaoOWr-DzealBRCkbsNHgyk=.cer",
+          "storePassword": "0000001A60606B8FDBD6E846C42FDADB4FF73B13B000BF7224E34604F55241FAA9637AF6A4970B9D6316",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001A1262A415CFDD53DE33714197596493EA76C3E96D622560D3DF52B8F225629A3378940F260B9D",
+          "profile": "/Users/liusaideng/.ohos/config/default_YouzanHarmonySDK_6lgcuPFEv_hGtwi872agXaoOWr-DzealBRCkbsNHgyk=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/liusaideng/.ohos/config/default_YouzanHarmonySDK_6lgcuPFEv_hGtwi872agXaoOWr-DzealBRCkbsNHgyk=.p12"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "compileSdkVersion": "4.1.0(11)",
+        "compatibleSdkVersion": "4.1.0(11)",
+        "runtimeOS": "HarmonyOS",
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "yzweb",
+      "srcPath": "./yzweb"
+    }
+  ]
+}
