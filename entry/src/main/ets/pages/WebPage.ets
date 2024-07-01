@@ -1,20 +1,20 @@
-import { YzLog, YzWeb } from '@youzan/app_web/Index';
+import { YzLog, YzWeb } from '@youzanyun/app_web/Index';
 import { promptAction, router } from '@kit.ArkUI';
-import { YzWebEventClient } from '@youzan/app_web/src/main/ets/components/YzWebEventClient';
-import { YzCookieManager } from '@youzan/app_web/src/main/ets/manager/YzCookieManager';
+import { YzWebEventClient } from '@youzanyun/app_web/src/main/ets/components/YzWebEventClient';
+import { YzCookieManager } from '@youzanyun/app_web/src/main/ets/manager/YzCookieManager';
 import {
   print_READY,
   print_window,
   share,
   trigger_web_ready
-} from '@youzan/app_web/src/main/ets/model/constant/YzConstant';
+} from '@youzanyun/app_web/src/main/ets/model/constant/YzConstant';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { YzDocumentVIewPicker, YzPhotoViewPicker } from '../managers/YzDocumentVIewPicker'
 import { MyWebviewController } from '../controller/MyWebviewController'
 
 import { webview } from '@kit.ArkWeb';
 import { picker } from '@kit.CoreFileKit';
-import { YzWebviewController } from '@youzan/app_web/src/main/ets/components/YzWebviewController';
+import { YzWebviewController } from '@youzanyun/app_web/src/main/ets/components/YzWebviewController';
 import { checkPermission } from '../PermissionUtils';
 import { abilityAccessCtrl, bundleManager, common, Permissions } from '@kit.AbilityKit';
 import { MediaUtils } from '../MediaUtils';

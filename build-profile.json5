@@ -45,10 +45,6 @@
           ]
         }
       ]
-    },
-    {
-      "name": "yzweb",
-      "srcPath": "./yzweb"
     }
   ]
 }

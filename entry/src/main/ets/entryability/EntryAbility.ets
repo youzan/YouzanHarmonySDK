@@ -1,7 +1,7 @@
 import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
-import { InitConfig, YouzanSDK, YzLog } from '@youzan/app_web/Index';
+import { InitConfig, YouzanSDK, YzLog } from '@youzanyun/app_web/Index';
 import { webview } from '@kit.ArkWeb';
 import { KaeConfig } from '../KaeConfig';
 

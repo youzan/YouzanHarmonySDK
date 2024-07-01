@@ -1,6 +1,6 @@
 import picker from '@ohos.file.picker';
 import { BusinessError } from '@ohos.base';
-import { LogType, YzLog } from '../../../../../yzweb/src/main/ets/utils/YzLog'
+import { LogType, YzLog } from '@youzanyun/app_web';
 
 export class YzDocumentVIewPicker {
   static async select(): Promise<string[]> {

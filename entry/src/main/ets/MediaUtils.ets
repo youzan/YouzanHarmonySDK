@@ -4,7 +4,7 @@ import { http } from '@kit.NetworkKit';
 import { BusinessError } from '@kit.BasicServicesKit';
 import { promptAction } from '@kit.ArkUI';
 import { common } from '@kit.AbilityKit';
-import { YzLog } from '@youzan/app_web/Index';
+import { YzLog } from '@youzanyun/app_web/Index';
 import Url from '@ohos.url'
 
 export class MediaUtils {

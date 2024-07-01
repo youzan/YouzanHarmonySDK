@@ -2,7 +2,7 @@ import bundleManager from '@ohos.bundle.bundleManager';
 import abilityAccessCtrl, { Permissions, PermissionRequestResult } from '@ohos.abilityAccessCtrl';
 import { BusinessError } from '@ohos.base';
 import common from '@ohos.app.ability.common';
-import { LogType, YzLog } from '../../../../../yzweb/src/main/ets/utils/YzLog'
+import { LogType, YzLog } from '@youzanyun/app_web';
 
 // 允许应用获取设备模糊位置信息
 const PERMISSION_APPROXIMATELY_LOCATION = 'ohos.permission.APPROXIMATELY_LOCATION'

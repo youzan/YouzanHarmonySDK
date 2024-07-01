@@ -1,6 +1,6 @@
 import AbilityStage from '@ohos.app.ability.AbilityStage';
 import type Want from '@ohos.app.ability.Want';
-import { YzLog } from '@youzan/app_web/Index';
+import { YzLog } from '@youzanyun/app_web/Index';
 import { AbilityConstant } from '@kit.AbilityKit';
 
 export default class MyAbilityStage extends AbilityStage {

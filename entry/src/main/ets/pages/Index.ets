@@ -1,19 +1,19 @@
-import { YouzanSDK, YzAPiService, YzLog, YzAxiosAPiService, LogType, putSp, getSp } from '@youzan/app_web/Index';
+import { YouzanSDK, YzAPiService, YzLog, YzAxiosAPiService, LogType, putSp, getSp } from '@youzanyun/app_web/Index';
 import { webview } from '@kit.ArkWeb';
 import { YzDocumentVIewPicker, YzPhotoViewPicker } from '../managers/YzDocumentVIewPicker'
 import { YzPermissionsManager } from '../managers/YzPermissionsManager'
 import { BusinessError } from '@ohos.base';
 import { promptAction, router } from '@kit.ArkUI';
-import { InitStatus } from '@youzan/app_web/src/main/ets/model/bo/InitStatus';
-import { AppStorageKey } from '@youzan/app_web/src/main/ets/model/constant/AppStorageKey';
+import { InitStatus } from '@youzanyun/app_web/src/main/ets/model/bo/InitStatus';
+import { AppStorageKey } from '@youzanyun/app_web/src/main/ets/model/constant/AppStorageKey';
 import { KaeConfig } from '../KaeConfig';
-import { UserInfoReqBO } from '@youzan/app_web/src/main/ets/model/req/request';
-import { YzCookieManager } from '@youzan/app_web/src/main/ets/manager/YzCookieManager';
+import { UserInfoReqBO } from '@youzanyun/app_web/src/main/ets/model/req/request';
+import { YzCookieManager } from '@youzanyun/app_web/src/main/ets/manager/YzCookieManager';
 import common from '@ohos.app.ability.common';
 import { MediaUtils } from '../MediaUtils';
 import { checkPermission, requestPermission } from '../PermissionUtils';
 import { Permissions } from '@kit.AbilityKit';
-import { printAll } from '@youzan/app_web/src/main/ets/utils/YzPreferences';
+import { printAll } from '@youzanyun/app_web/src/main/ets/utils/YzPreferences';
 import { ifaa } from '@kit.OnlineAuthenticationKit';
 
 @Entry

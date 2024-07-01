@@ -1,11 +1,11 @@
-import { JsSubscribeKey } from '@youzan/app_web/src/main/ets/model/constant/JsDefine'
-import { YzWebviewController } from '@youzan/app_web/src/main/ets/components/YzWebviewController'
-import { YouzanSDK } from '@youzan/app_web/Index';
 import { promptAction } from '@kit.ArkUI';
-import { UserInfoReqBO } from '@youzan/app_web/src/main/ets/model/req/request';
 import { common } from '@kit.AbilityKit';
 import { systemShare } from '@kit.ShareKit';
 import { uniformTypeDescriptor as utd } from '@kit.ArkData';
+import { JsSubscribeKey } from '@youzanyun/app_web/src/main/ets/model/constant/JsDefine';
+import { YzWebviewController } from '@youzanyun/app_web/src/main/ets/components/YzWebviewController';
+import { UserInfoReqBO } from '@youzanyun/app_web/src/main/ets/model/req/request';
+import { YouzanSDK } from '@youzanyun/app_web';
 
 export class MyWebviewController extends YzWebviewController {
   private doJsEvent(key: string, params: string) {
