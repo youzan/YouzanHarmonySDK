@@ -1,7 +1,7 @@
 
 ## 接入
 ```
-  待更新
+  ohpm i @youzanyun/app_web
 ```
 ## 初始化
 ```typescript
