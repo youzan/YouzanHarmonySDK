@@ -1,9 +1,10 @@
 
-## 接入
-```
-  ohpm i @youzanyun/app_web
-```
-## 初始化
+
+## 安装
+`ohpm install @youzanyun/app_web`
+
+## SDK初始化
+在加载有赞页面之前对SDK进行初始化，比如：在`EntryAbility`的`onCreate`方法中，示例如下:
 ```typescript
 export default class EntryAbility extends UIAbility {
   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
@@ -21,11 +22,45 @@ export default class EntryAbility extends UIAbility {
   }
 }
 ```
-
+需要传入一个UIAbilityContext和InitConfig实例，InitConfig实例可以配置clientId、clientKey等等，具体参数说明如下：
+- `debug`：是否开启debug模式
+- `clientId`：您申请的clientId
+- `clientKey`：您申请的clientKey
+- `logConfig`：日志相关的配置，可以配置`support`参数，确定是否开启日志打印
+- `webConfig`：web相关的配置，可以配置`supportLongPress`参数，确定是否支持长按保存图片
 
 ## web组件接入
-### 继承YzWebviewController
-- YzWebviewController是继承了鸿蒙 webview.WebviewController， 封装了涉及有赞的跳转、js bridge注册、url返回等方法
+web组件主要依赖三个参数：
+- `url`：需要加载的web地址
+- `delegate`：继承于`YzWebEventClient`的实例，`YzWeb`基于系统`Web`组件，系统Web组件所有的事件通过`delegate`分发出来，供业务方使用
+- `controller`：继承于`YzWebviewController`的实例，`YzWebviewController`继承于系统的`WebviewController`，封装了涉及有赞的跳转、js bridge注册、url返回等方法
+
+### 实现WebviewController
+自定义`WebviewController`，需继承`YzWebviewController`，`YzWebviewController`是继承了鸿蒙 `webview.WebviewController`，封装了涉及有赞的跳转、js bridge注册、url返回等方法
+
+通过`registerJSSubscriber`方法订阅有赞的JS事件，具体事件Key对应事件说明如下：
+
+| 事件Key                             | 说明                    |
+|-----------------------------------|-----------------------|
+| KEY_AUTHENTICATION                | 获取用户信息                |
+| KEY_PAGE_READY                    | Web页面已准备好，分享接口可用      |
+| KEY_SHARE                         | 分享事件                  |
+| KEY_FILE_CHOOSER                  | 文件选择事件                |
+| KEY_CUSTOM_ACTION                 | 通用自定义事件               |
+| KEY_ADD_TO_CART                   | 用户添加商品到购物车            |
+| KEY_BUY_NOW                       | 商品详情页点击“立即购买”         |
+| KEY_ADD_UP                        | 购物车页面点击“结算”时回调        |
+| KEY_PAYMENT_FINISHED              | 支付完成回到结果页，结果页收到支付成功回调 |
+| KEY_CHECK_AUTH_MOBILE             | 登陆完成后的回调              |
+| KEY_AUTHORIZATION_SUCCESS         | 一键登录成功回调              |
+| KEY_AUTHORIZATION_ERROR           | 一键登录失败回调              |
+| KEY_INVOKE_DISAGREE_PROTOCOL      | 不同意协议并退出              |
+| KEY_INVOKE_GO_CASHIER             | 拉起三方收银台               |
+| KEY_INVOKE_CANCEL_ACCOUNT_SUCCESS | 账号注销成功回调              |
+| KEY_INVOKE_CANCEL_ACCOUNT_FAIL    | 账号注销失败回调              |
+| KEY_INVOKE_CHANGE_PULL_REFRESH    | 当前页面下拉刷新功能开关          |
+
+根据业务方具体需求，按需订阅，示例如下:
 ```typescript
 export class MyWebviewController extends YzWebviewController {
   private doJsEvent(key: string, params: string) {
@@ -87,21 +122,23 @@ export class MyWebviewController extends YzWebviewController {
     })
   }
 }
-``` 
+```
 
-
-### 继承YzWebEventClient
- - 由于鸿蒙组件不支持继承， web组件的事件通过YzWebEventClient分发到业务层
+### 实现WebEventClient
+自定义`WebEventClient`，需继承于`YzWebEventClient`。因为鸿蒙组件不支持继承，Web组件的事件通过`WebEventClient`分发到业务层，`WebEventClient`中的事件基本都是透传Web组件原生的事件，具体事件可以参考Web组件的事件。
 ```typescript
-    class MyWebDelegate extends YzWebEventClient {
+class MyWebDelegate extends YzWebEventClient {
+  // "页面开始加载
   onPageBegin(url: string): void {
     // promptAction.showToast({ message: "页面开始加载" + url })
   }
-
+  
+  //  页面结束加载
   onPageEnd(url: string): void {
     // promptAction.showToast({ message: "页面结束加载" + url })
   }
-
+  
+  // 上传文件。处理前端页面文件上传的请求
   onShowFileSelector(
     result: FileSelectorResult | undefined,
     fileSelector: FileSelectorParam | undefined
@@ -125,6 +162,7 @@ export class MyWebviewController extends YzWebviewController {
     return true;
   }
 
+  // 长按图片后，点击保存图片回调
   onImageSave(url: string): boolean {
     checkPermission(getContext() as common.UIAbilityContext, 'ohos.permission.WRITE_IMAGEVIDEO').then((data) => {
       if (data == abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED) {
@@ -136,7 +174,7 @@ export class MyWebviewController extends YzWebviewController {
 }
 
 ```
-### 使用
+### 使用示例
 ```ets
 @Entry
 @Component
@@ -152,36 +190,8 @@ struct WebPage {
     }
   }
   
-    @Builder
-  buildTitle() {
-    Row() {
-      Button("返回").onClick(() => {
-
-        this.delegate.controller?.goBack()
-
-        // this.delegate.controller?.runJavaScript(print_window)
-      })
-
-      Button("分享").onClick(() => {
-        this.delegate.controller?.runJavaScript(share).then(() => {
-          YzLog.print(`run js 成功`)
-        }).catch((err: BusinessError) => {
-          YzLog.print(`run js 失败 ${err.message}}`)
-        })
-
-
-      })
-
-      Button("重新加载").onClick(() => {
-        this.controller.refresh()
-      })
-    }
-  }
-  
-  
   build() {
     Column() {
-      this.buildTitle()
       YzWeb({
         url: this.url,
         delegate: this.delegate,
@@ -190,7 +200,6 @@ struct WebPage {
     }
     .width('100%')
   }
-  
 }
 ```
 
