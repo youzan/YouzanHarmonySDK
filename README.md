@@ -62,16 +62,21 @@ web组件主要依赖三个参数：
 
 根据业务方具体需求，按需订阅，示例如下:
 ```typescript
+import { JsSubscribeKey } from '@youzanyun/app_web/src/main/ets/model/constant/JsDefine';
+import { YzWebviewController } from '@youzanyun/app_web/src/main/ets/components/YzWebviewController';
+import { UserInfoReqBO } from '@youzanyun/app_web/src/main/ets/model/req/request';
+import { YouzanSDK } from '@youzanyun/app_web';
+
 export class MyWebviewController extends YzWebviewController {
   private doJsEvent(key: string, params: string) {
     switch (key) {
       case JsSubscribeKey.KEY_AUTHENTICATION: { // 用户登录
         YouzanSDK.queryUserInfo(new UserInfoReqBO(
-          "31467761",
-          "https://cdn.daddylab.com/Upload/android/20210113/021119/au9j4d6aed5xfweg.jpeg?w=1080&h=1080",
-          "一百亿养乐多",
-          "0",
-          ""
+          "31467761", // 有赞openId 必传 开发者自身系统的用户ID，是三方App帐号在有赞的唯一标示符，如更换将导致原用户数据丢失
+          "https://cdn.daddylab.com/Upload/android/20210113/021119/au9j4d6aed5xfweg.jpeg?w=1080&h=1080", // 头像信息
+          "一百亿养乐多", // 非必传，用户头像，建议传入https的url
+          "0",    // 非必传，性别 0（保密）1（男）2（女）
+          "" // 非必传，用户额外参数
         ))
           .then((data) => {
             setTimeout(() => {
@@ -127,6 +132,20 @@ export class MyWebviewController extends YzWebviewController {
 ### 实现WebEventClient
 自定义`WebEventClient`，需继承于`YzWebEventClient`。因为鸿蒙组件不支持继承，Web组件的事件通过`WebEventClient`分发到业务层，`WebEventClient`中的事件基本都是透传Web组件原生的事件，具体事件可以参考Web组件的事件。
 ```typescript
+import { YzLog, YzWeb } from '@youzanyun/app_web/Index';
+import { YzWebEventClient } from '@youzanyun/app_web/src/main/ets/components/YzWebEventClient';
+import { YzCookieManager } from '@youzanyun/app_web/src/main/ets/manager/YzCookieManager';
+import {
+  share,
+} from '@youzanyun/app_web/src/main/ets/model/constant/YzConstant';
+
+
+import { MediaUtils } from '../MediaUtils';
+import { YzDocumentVIewPicker, YzPhotoViewPicker } from '../managers/YzDocumentVIewPicker'
+import { MyWebviewController } from '../controller/MyWebviewController'
+import { checkPermission } from '../PermissionUtils';
+
+
 class MyWebDelegate extends YzWebEventClient {
   // "页面开始加载
   onPageBegin(url: string): void {
