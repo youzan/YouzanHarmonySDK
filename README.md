@@ -183,6 +183,7 @@ class MyWebDelegate extends YzWebEventClient {
 
   // 长按图片后，点击保存图片回调
   onImageSave(url: string): boolean {
+    // getContext 是系统方法 
     checkPermission(getContext() as common.UIAbilityContext, 'ohos.permission.WRITE_IMAGEVIDEO').then((data) => {
       if (data == abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED) {
         MediaUtils.saveToAlbum(getContext() as common.UIAbilityContext, url)
