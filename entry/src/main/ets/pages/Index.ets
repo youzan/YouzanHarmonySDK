@@ -1,4 +1,4 @@
-import { YouzanSDK, YzAPiService, YzLog, YzAxiosAPiService, LogType, putSp, getSp } from '@youzanyun/app_web/Index';
+import { YouzanSDK, YzAPiService, YzLog, LogType, putSp, getSp } from '@youzanyun/app_web/Index';
 import { webview } from '@kit.ArkWeb';
 import { YzDocumentVIewPicker, YzPhotoViewPicker } from '../managers/YzDocumentVIewPicker'
 import { YzPermissionsManager } from '../managers/YzPermissionsManager'
@@ -34,7 +34,6 @@ struct Index {
 
   aboutToAppear(): void {
     YzLog.print("aboutToAppear")
-    YzAxiosAPiService.init()
 
     YzLog.addLog(LogType.COOKIE, `isCookieAllowed ${webview.WebCookieManager.isCookieAllowed()}`)
 
