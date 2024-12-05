@@ -3,6 +3,9 @@
 ## 安装
 `ohpm install @youzanyun/app_web`
 
+## 说明
+1.1.5 版本起， sdk 最低支持到5.0.0(12)
+
 ## SDK初始化
 在加载有赞页面之前对SDK进行初始化，比如：在`EntryAbility`的`onCreate`方法中，示例如下:
 ```typescript

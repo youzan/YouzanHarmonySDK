@@ -5,13 +5,13 @@
         "name": "default",
         "type": "HarmonyOS",
         "material": {
-          "certpath": "/Users/liusaideng/.ohos/config/default_YouzanHarmonySDK_6lgcuPFEv_hGtwi872agXaoOWr-DzealBRCkbsNHgyk=.cer",
-          "storePassword": "0000001A60606B8FDBD6E846C42FDADB4FF73B13B000BF7224E34604F55241FAA9637AF6A4970B9D6316",
+          "certpath": "/Users/liusaideng/.ohos/config/default_YouzanHarmonySDK-Sample_5dsqj3V17qg1WefeRkm0Wy7OaVanGYdFXCuoB2rYmbI=.cer",
+          "storePassword": "000000196218F8F5E7DF9D9F7F1329AA488B23B143564EFCC13DC996E4721BDE6EE16373B1E89834D6",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001A1262A415CFDD53DE33714197596493EA76C3E96D622560D3DF52B8F225629A3378940F260B9D",
-          "profile": "/Users/liusaideng/.ohos/config/default_YouzanHarmonySDK_6lgcuPFEv_hGtwi872agXaoOWr-DzealBRCkbsNHgyk=.p7b",
+          "keyPassword": "00000019061321A5A152F6C60529E83C14FBB78DD4512D5BBCD8195DDFC284336C95B67F84051630BE",
+          "profile": "/Users/liusaideng/.ohos/config/default_YouzanHarmonySDK-Sample_5dsqj3V17qg1WefeRkm0Wy7OaVanGYdFXCuoB2rYmbI=.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "/Users/liusaideng/.ohos/config/default_YouzanHarmonySDK_6lgcuPFEv_hGtwi872agXaoOWr-DzealBRCkbsNHgyk=.p12"
+          "storeFile": "/Users/liusaideng/.ohos/config/default_YouzanHarmonySDK-Sample_5dsqj3V17qg1WefeRkm0Wy7OaVanGYdFXCuoB2rYmbI=.p12"
         }
       }
     ],
@@ -19,9 +19,13 @@
       {
         "name": "default",
         "signingConfig": "default",
-        "compileSdkVersion": "4.1.0(11)",
-        "compatibleSdkVersion": "4.1.0(11)",
+        "compatibleSdkVersion": "5.0.0(12)",
         "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "useNormalizedOHMUrl": true
+          }
+        }
       }
     ],
     "buildModeSet": [

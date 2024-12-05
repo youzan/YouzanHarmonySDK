@@ -9,15 +9,15 @@ import {
   trigger_web_ready
 } from '@youzanyun/app_web/src/main/ets/model/constant/YzConstant';
 import { BusinessError } from '@kit.BasicServicesKit';
+import { MediaUtils } from '../MediaUtils';
 import { YzDocumentVIewPicker, YzPhotoViewPicker } from '../managers/YzDocumentVIewPicker'
 import { MyWebviewController } from '../controller/MyWebviewController'
+import { checkPermission } from '../PermissionUtils';
 
 import { webview } from '@kit.ArkWeb';
 import { picker } from '@kit.CoreFileKit';
 import { YzWebviewController } from '@youzanyun/app_web/src/main/ets/components/YzWebviewController';
-import { checkPermission } from '../PermissionUtils';
 import { abilityAccessCtrl, bundleManager, common, Permissions } from '@kit.AbilityKit';
-import { MediaUtils } from '../MediaUtils';
 
 interface UrlParams {
   url: string
