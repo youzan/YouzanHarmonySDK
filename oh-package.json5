@@ -8,7 +8,7 @@
   "license": "",
   "dependencies": {
     "@ohos/crypto-js": "^2.0.3",
-    "@youzanyun/app_web": "file:./yzweb.har"
+    "@youzanyun/app_web": "1.1.9"
   },
   "devDependencies": {
     "@ohos/hypium": "1.0.16",

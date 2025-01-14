@@ -18,6 +18,7 @@ import { webview } from '@kit.ArkWeb';
 import { picker } from '@kit.CoreFileKit';
 import { YzWebviewController } from '@youzanyun/app_web/src/main/ets/components/YzWebviewController';
 import { abilityAccessCtrl, bundleManager, common, Permissions } from '@kit.AbilityKit';
+import { YzPermissionsManager } from '../managers/YzPermissionsManager';
 
 interface UrlParams {
   url: string
@@ -61,6 +62,55 @@ class MyWebDelegate extends YzWebEventClient {
     //   })
     // }
     return true;
+  }
+
+  onGeolocationShow(
+    origin: string | undefined,
+    geolocation: JsGeolocation | undefined
+  ) {
+
+    if (origin && geolocation) {
+      AlertDialog.show({
+        title: '申请定位权限',
+        message: '用于新增收货地址',
+        confirm: {
+          value: '确定',
+          action: () => {
+            YzPermissionsManager.checkLocationPermission().then((ret: boolean) => {
+              if (ret) {
+                geolocation?.invoke(origin, true, true);
+                promptAction.showToast({ message: "已经位置授权过了" })
+              } else {
+                let context: Context = getContext(this) as common.UIAbilityContext;
+                YzPermissionsManager.requestLocationPermission(context).then((ret: boolean) => {
+                  if (ret) {
+                    geolocation?.invoke(origin, true, true);
+                    promptAction.showToast({ message: "位置授权成功" })
+                  } else {
+                    geolocation.invoke(origin, false, true);
+                    promptAction.showToast({ message: "位置授权失败" })
+                  }
+                }).catch((err: BusinessError) => {
+                  geolocation.invoke(origin, false, true);
+                  promptAction.showToast({ message: "位置授权失败" })
+                })
+              }
+            }).catch((err: BusinessError) => {
+              promptAction.showToast({ message: "获取位置授权失败" })
+            })
+          }
+        },
+        cancel: () => {
+          geolocation.invoke(origin, false, true);
+        }
+      })
+    }
+
+
+
+
+
+
   }
 
   onImageSave(url: string): boolean {

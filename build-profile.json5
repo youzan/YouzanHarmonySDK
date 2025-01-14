@@ -6,9 +6,9 @@
         "type": "HarmonyOS",
         "material": {
           "certpath": "/Users/liusaideng/.ohos/config/default_YouzanHarmonySDK-Sample_5dsqj3V17qg1WefeRkm0Wy7OaVanGYdFXCuoB2rYmbI=.cer",
-          "storePassword": "000000196218F8F5E7DF9D9F7F1329AA488B23B143564EFCC13DC996E4721BDE6EE16373B1E89834D6",
+          "storePassword": "0000001AB9FC63CEC76F24B1D24251698EA730F99136B39884EAA92C3C5E11D5485745ADD1F771AECE7D",
           "keyAlias": "debugKey",
-          "keyPassword": "00000019061321A5A152F6C60529E83C14FBB78DD4512D5BBCD8195DDFC284336C95B67F84051630BE",
+          "keyPassword": "0000001A246275C99C56B07D872219F96786499F4CFB521F6314BEB985208884538062D78FB7B4FDB51F",
           "profile": "/Users/liusaideng/.ohos/config/default_YouzanHarmonySDK-Sample_5dsqj3V17qg1WefeRkm0Wy7OaVanGYdFXCuoB2rYmbI=.p7b",
           "signAlg": "SHA256withECDSA",
           "storeFile": "/Users/liusaideng/.ohos/config/default_YouzanHarmonySDK-Sample_5dsqj3V17qg1WefeRkm0Wy7OaVanGYdFXCuoB2rYmbI=.p12"
