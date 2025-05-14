@@ -162,7 +162,7 @@ struct Index {
           ""
         ))
           .then((data) => {
-            // YzCookieManager.syncUserInfoCookie(data?.cookie_key ?? "", data?.cookie_value ?? "")
+            YzCookieManager.syncUserInfoCookie(data?.cookie_key ?? "", data?.cookie_value ?? "")
             YzCookieManager.checkCookie()
             promptAction.showToast({ message: "请求成功" })
           })
