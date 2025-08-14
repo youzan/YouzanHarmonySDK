@@ -80,6 +80,7 @@ export class MyWebviewController extends YzWebviewController {
         ))
           .then((data) => {
             setTimeout(() => {
+              // 这里可能存在web已经消亡了， 偶现 crash， 可以加个 try-catch 保护
               this.refresh()
             }, 500)
             promptAction.showToast({ message: "请求成功" })
