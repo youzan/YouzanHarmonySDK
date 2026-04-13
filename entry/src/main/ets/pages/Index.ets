@@ -11,10 +11,8 @@ import { UserInfoReqBO } from '@youzanyun/app_web/src/main/ets/model/req/request
 import { YzCookieManager } from '@youzanyun/app_web/src/main/ets/manager/YzCookieManager';
 import common from '@ohos.app.ability.common';
 import { MediaUtils } from '../MediaUtils';
-import { checkPermission, requestPermission } from '../PermissionUtils';
-import { Permissions } from '@kit.AbilityKit';
+import { checkPermission } from '../PermissionUtils';
 import { printAll } from '@youzanyun/app_web/src/main/ets/utils/YzPreferences';
-import { ifaa } from '@kit.OnlineAuthenticationKit';
 
 @Entry
 @Component
@@ -48,11 +46,9 @@ struct Index {
     YzLog.print("onBackPress")
   }
 
-
   build() {
     Stack() {
       Column() {
-
         this.buildTextArea()
         this.buildUrl()
         this.buildInit()
@@ -159,7 +155,8 @@ struct Index {
           "https://cdn.daddylab.com/Upload/android/20210113/021119/au9j4d6aed5xfweg.jpeg?w=1080&h=1080",
           "一百亿养乐多",
           "0",
-          ""
+          "",
+          "xxx"
         ))
           .then((data) => {
             // YzCookieManager.syncUserInfoCookie(data?.cookie_key ?? "", data?.cookie_value ?? "")
