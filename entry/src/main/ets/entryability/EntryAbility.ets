@@ -12,7 +12,7 @@ export default class EntryAbility extends UIAbility {
       support: true
     }, {
       supportLoading: true,
-      supportLongPress: true
+      supportLongPress: false
     }))
 
     webview.WebviewController.prepareForPageLoad(KaeConfig.S_URL_MAIN, true, 2);

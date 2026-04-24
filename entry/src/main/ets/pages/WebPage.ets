@@ -64,7 +64,7 @@ class MyWebDelegate extends YzWebEventClient {
     return true;
   }
 
-  onGeolocationShow(
+  async onGeolocationShow(
     origin: string | undefined,
     geolocation: JsGeolocation | undefined
   ) {

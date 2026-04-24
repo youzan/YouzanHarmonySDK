@@ -1,0 +1,9 @@
+{
+  "name": "youzanharmonysdk-sample-scripts",
+  "version": "1.0.0",
+  "description": "Scripts for YouzanHarmonySDK Sample project",
+  "scripts": {
+    "use-source": "node switch_dep.js source",
+    "use-remote": "node switch_dep.js remote"
+  }
+}

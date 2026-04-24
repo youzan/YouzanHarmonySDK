@@ -6,6 +6,7 @@
   "author": "",
   "license": "",
   "dependencies": {
+    "@youzanyun/app_web": "../../YouzanHarmonySDK/yzweb"
   }
 }
 
