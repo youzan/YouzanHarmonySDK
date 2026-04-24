@@ -122,10 +122,6 @@ export class MyWebviewController extends YzWebviewController {
     }
   }
 
-  goBack(): boolean {
-    super.goBack()
-  }
-
   // js subscribe
   registerYZJSSubscribers() {
     const eventKeys = [

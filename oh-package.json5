@@ -8,7 +8,7 @@
   "license": "",
   "dependencies": {
     "@ohos/crypto-js": "^2.0.3",
-    "@youzanyun/app_web": "1.1.15"
+    "@youzanyun/app_web": "../YouzanHarmonySDK/yzweb"
 //    "@youzanyun/app_web": "./yzweb.har"
   },
   "devDependencies": {
