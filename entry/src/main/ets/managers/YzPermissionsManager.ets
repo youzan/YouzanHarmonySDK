@@ -1,5 +1,5 @@
 import bundleManager from '@ohos.bundle.bundleManager';
-import abilityAccessCtrl, { Permissions, PermissionRequestResult } from '@ohos.abilityAccessCtrl';
+import abilityAccessCtrl, { Permissions } from '@ohos.abilityAccessCtrl';
 import { BusinessError } from '@ohos.base';
 import common from '@ohos.app.ability.common';
 import { LogType, YzLog } from '@youzanyun/app_web';
@@ -12,6 +12,7 @@ const PERMISSION_LOCATION = 'ohos.permission.LOCATION'
 const PERMISSION_READ_MEDIA = 'ohos.permission.READ_MEDIA'
 // 允许应用使用相机
 const PERMISSION_CAMERA = 'ohos.permission.CAMERA'
+const LOCATION_PERMISSIONS: Permissions[] = [PERMISSION_APPROXIMATELY_LOCATION, PERMISSION_LOCATION]
 
 export class YzPermissionsManager {
   static async checkAccessToken(permission: Permissions): Promise<abilityAccessCtrl.GrantStatus> {
@@ -43,16 +44,11 @@ export class YzPermissionsManager {
 
   // 检查位置授权情况
   static async checkLocationPermission(): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      YzPermissionsManager.checkAccessToken(PERMISSION_APPROXIMATELY_LOCATION).then((ret: abilityAccessCtrl.GrantStatus) => {
-        YzPermissionsManager.checkAccessToken(PERMISSION_LOCATION).then((ret: abilityAccessCtrl.GrantStatus) => {
-          resolve(ret == abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED)
-        }).catch((err: BusinessError) => {
-          reject(err)
-        })
-      }).catch((err: BusinessError) => {
-        reject(err)
-      })
+    const grantStatusList = await Promise.all(LOCATION_PERMISSIONS.map((permission: Permissions) => {
+      return YzPermissionsManager.checkAccessToken(permission);
+    }))
+    return grantStatusList.some((grantStatus: abilityAccessCtrl.GrantStatus) => {
+      return grantStatus == abilityAccessCtrl.GrantStatus.PERMISSION_GRANTED
     })
   }
 
@@ -78,53 +74,35 @@ export class YzPermissionsManager {
     })
   }
 
+  static async requestPermissions(permissions: Permissions[], component?: Object): Promise<boolean> {
+    let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
+    // 使用UIExtensionAbility：将common.UIAbilityContext 替换为common.UIExtensionContext
+    let context: Context = getContext(component) as common.UIAbilityContext;
+
+    try {
+      const data = await atManager.requestPermissionsFromUser(context, permissions);
+      YzLog.addLog(LogType.DEFAULT, 'data:' + JSON.stringify(data));
+      YzLog.addLog(LogType.DEFAULT, 'data permissions:' + data.permissions);
+      YzLog.addLog(LogType.DEFAULT, 'data authResults:' + data.authResults);
+
+      return data.authResults.some((authResult: number) => authResult == 0)
+    } catch (error) {
+      const err: BusinessError = error as BusinessError;
+      YzLog.addLog(LogType.DEFAULT, `requestPermissionsFromUser fail, err->${JSON.stringify(err)}`);
+    }
+
+    return false
+  }
+
   static async requestPermission(permission: Permissions, component?: Object): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      let atManager: abilityAccessCtrl.AtManager = abilityAccessCtrl.createAtManager();
-      // 使用UIExtensionAbility：将common.UIAbilityContext 替换为common.UIExtensionContext
-      let context: Context = getContext(component) as common.UIAbilityContext;
-      try {
-        atManager.requestPermissionsFromUser(context, [permission], (err: BusinessError, data: PermissionRequestResult)=>{
-          if (err) {
-            reject(err)
-            YzLog.addLog(LogType.DEFAULT, `requestPermissionsFromUser fail, err->${JSON.stringify(err)}`);
-          } else {
-
-            YzLog.addLog(LogType.DEFAULT, 'data:' + JSON.stringify(data));
-            YzLog.addLog(LogType.DEFAULT, 'data permissions:' + data.permissions);
-            YzLog.addLog(LogType.DEFAULT, 'data authResults:' + data.authResults);
-
-            if (data.authResults.length >= 1) {
-              // 用户授权，可以继续访问目标操作
-              resolve(data.authResults[0] == 0)
-            } else {
-              // 用户拒绝授权，提示用户必须授权才能访问当前页面的功能，并引导用户到系统设置中打开相应的权限
-              resolve(false)
-            }
-          }
-        })
-      } catch (err) {
-        reject(err)
-      }
-    })
+    return YzPermissionsManager.requestPermissions([permission], component)
   }
 
   static async requestLocationPermission(component?: Object): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      YzPermissionsManager.requestPermission(PERMISSION_APPROXIMATELY_LOCATION, component).then((ret: boolean) => {
-        if (ret) {
-          YzPermissionsManager.requestPermission(PERMISSION_LOCATION, component).then((ret: boolean) => {
-            resolve(ret)
-          }).catch((err: BusinessError) => {
-            reject(err)
-          })
-        } else {
-          resolve(false)
-        }
-      }).catch((err: BusinessError) => {
-        reject(err)
-      })
-    })
+    if (await YzPermissionsManager.checkLocationPermission()) {
+      return true
+    }
+    return YzPermissionsManager.requestPermissions(LOCATION_PERMISSIONS, component)
   }
 
   static async requestReadMediaPermission(component?: Object): Promise<boolean> {
